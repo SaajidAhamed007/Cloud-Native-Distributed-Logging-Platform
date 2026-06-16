@@ -1,1 +1,2 @@
 kafka-python==2.2.15
+opensearch-py==2.8.0

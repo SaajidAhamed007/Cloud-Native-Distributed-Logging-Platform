@@ -5,10 +5,19 @@ from datetime import datetime, UTC
 
 from kafka import KafkaProducer
 
-producer = KafkaProducer(
-    bootstrap_servers="kafka:9092",
-    value_serializer=lambda v: json.dumps(v).encode("utf-8")
-)
+producer = None
+
+while producer is None:
+    try:
+        producer = KafkaProducer(
+            bootstrap_servers="kafka:9092",
+            value_serializer=lambda v: json.dumps(v).encode("utf-8")
+        )
+        print("Connected to Kafka")
+
+    except Exception as e:
+        print(f"Waiting for Kafka: {e}")
+        time.sleep(5)
 
 events = [
     ("INFO", "deployment started"),
