@@ -3,13 +3,18 @@ import random
 import time
 from datetime import datetime, UTC
 
+from kafka import KafkaProducer
+
+producer = KafkaProducer(
+    bootstrap_servers="kafka:9092",
+    value_serializer=lambda v: json.dumps(v).encode("utf-8")
+)
+
 events = [
-    ("INFO", "incident created"),
-    ("INFO", "incident acknowledged"),
-    ("WARN", "escalation triggered"),
-    ("ERROR", "service degraded"),
-    ("CRITICAL", "service unavailable"),
-    ("INFO", "incident resolved"),
+    ("INFO", "deployment started"),
+    ("INFO", "deployment completed"),
+    ("WARN", "high rollout latency"),
+    ("ERROR", "rollout failed"),
 ]
 
 while True:
@@ -25,4 +30,8 @@ while True:
     }
 
     print(json.dumps(log), flush=True)
-    time.sleep(5)
+
+    producer.send("logs.raw", log)
+    producer.flush()
+
+    time.sleep(3)
