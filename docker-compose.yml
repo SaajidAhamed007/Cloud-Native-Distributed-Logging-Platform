@@ -1,0 +1,16 @@
+services:
+
+  deployment-service:
+    build:
+      context: ./apps/deployment-service
+    container_name: deployment-service
+
+  monitoring-service:
+    build:
+      context: ./apps/monitoring-service
+    container_name: monitoring-service
+
+  incident-service:
+    build:
+      context: ./apps/incident-service
+    container_name: incident-service
