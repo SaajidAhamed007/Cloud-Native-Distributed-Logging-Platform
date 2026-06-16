@@ -94,3 +94,15 @@ services:
 
     depends_on:
       - opensearch
+
+  query-api:
+    build:
+      context: ./services/query-api
+
+    container_name: query-api
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - opensearch
