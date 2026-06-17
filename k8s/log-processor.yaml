@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: log-processor
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: log-processor
+
+  template:
+    metadata:
+      labels:
+        app: log-processor
+
+    spec:
+      containers:
+      - name: log-processor
+        image: log-processor:latest
+        imagePullPolicy: Never

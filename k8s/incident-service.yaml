@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: incident-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: incident-service
+
+  template:
+    metadata:
+      labels:
+        app: incident-service
+
+    spec:
+      containers:
+      - name: incident-service
+        image: incident-service:latest
+        imagePullPolicy: Never

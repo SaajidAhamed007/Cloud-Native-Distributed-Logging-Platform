@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deployment-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: deployment-service
+
+  template:
+    metadata:
+      labels:
+        app: deployment-service
+
+    spec:
+      containers:
+      - name: deployment-service
+        image: deployment-service:latest
+        imagePullPolicy: Never
